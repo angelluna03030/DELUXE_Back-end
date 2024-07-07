@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const categoriasSchema = new mongoose.Schema({
+const categoriaSchema = new mongoose.Schema({
     nombre: {
         type: String,
         required: true,
@@ -10,17 +10,17 @@ const categoriasSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    descripción: {
+    descripcion: {
         type: String,
         required: true,
         match: /^[A-Za-z0-9\s]+$/
     },
-    fechaCreación: {
+    fechaCreacion: {
         type: Date,
         default: Date.now
     }
 });
 
-const Categoria = mongoose.model('Categoria', categoriasSchema);
+const Categoria = mongoose.model('Categoria', categoriaSchema);
 
 module.exports = Categoria;
