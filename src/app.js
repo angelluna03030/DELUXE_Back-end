@@ -13,18 +13,19 @@ app.use(cors());
 // Configuración de almacenamiento de multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "./public"); // TODO: imagen cruda
+        cb(null, "./public"); // TODO: Cambiar a una ruta más específica si es necesario
     },
     filename: (req, file, cb) => {
-        const ext = file.originalname.split(".").pop(); // TODO: imagen.png --> .png
+        const ext = file.originalname.split(".").pop();
         cb(null, `${Date.now()}.${ext}`);
     }
 });
 
 const upload = multer({ storage });
 
+// Ruta para la carga de archivos
 app.post("/public", upload.single('file'), (req, res) => {
-    res.send({ data: "Imagen cargada" });
+    res.status(200).send({ data: "Imagen cargada correctamente", file: req.file });
 });
 
 // Conexión a MongoDB Atlas
@@ -43,7 +44,7 @@ app.get("/", (req, res) => {
   res.send("¡Bienvenido a la API!");
 });
 
-// Iniciar el servidor en el puerto 3000
+// Iniciar el servidor en el puerto especificado en las variables de entorno
 const PORT = process.env.PORT ;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
