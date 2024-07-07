@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const productosSchema = new mongoose.Schema({
-    Código: {
+    codigo: {
         type: String,
         required: true,
         match: /^[A-Z0-9]+$/
@@ -15,15 +15,15 @@ const productosSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    descripción: {
+    descripcion: {
         type: String,
         required: true,
-        match: /^[A-Za-z0-9\s]+$/
+    
     },
     materiales: {
         type: String,
         required: true,
-        match: /^[A-Za-z0-9\s]+$/
+     
     },
     tallas: {
         type: [String],
@@ -37,12 +37,12 @@ const productosSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
-    categorías: {
+    categorias: {
         type: String,
         required: true,
         match: /^[A-Za-z]+$/
     },
-    fechaCreación: {
+    fechaCreacion: {
         type: Date,
         default: Date.now
     }

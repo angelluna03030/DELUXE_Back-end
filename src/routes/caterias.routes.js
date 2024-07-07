@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Categoria = require('../models/categoria.modelo'); // Asegúrate de importar el modelo correctamente
+const Categoria = require('../models/categoria.modelo');
 // trae los categorias 
 router.get("/categorias", (req, res) => {
     Categoria.find()
@@ -43,7 +43,7 @@ router.post("/categoria", (req, res) => {
             res.status(500).json({ error: e.message });
         });
 });
-//Editar cagoria por el id 
+//Editar categoria por el id 
 router.put("/categoria/:id", (req, res) => {
     const id = req.params.id;
     const { nombre, imagen, descripcion } = req.body;
@@ -60,7 +60,7 @@ router.put("/categoria/:id", (req, res) => {
             res.status(500).json({ error: e.message });
         });
 });
-// eliminar una cateoria por el id
+// eliminar una categoria por el id
 router.delete("/categoria/:id", (req, res) => {
     const id = req.params.id;
 
