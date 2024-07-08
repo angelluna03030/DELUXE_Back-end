@@ -38,6 +38,22 @@ router.get("/producto/:id", (req, res) => {
             res.status(500).json({ error: e.message });
         });
 });
+// trae la producto por la categoria 
+
+router.get('/productos/categoria/:categorias', (req, res) => {
+    const categoria = req.params.categorias;
+    Producto.find({ categorias: categoria })
+        .then((productos) => {
+            if (productos.length === 0) {
+                return res.status(404).json({ message: 'No se encontraron productos para esta categoría' });
+            }
+            res.status(200).json(productos);
+        })
+        .catch((e) => {
+            console.error(`Error: ${e}`);
+            res.status(500).json({ error: e.message });
+        });
+});
 //Editar producto por el id 
 
 router.put("/producto/:id", (req, res) => {
