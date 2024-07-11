@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
 const multer = require("multer");
-const sharp = require("sharp");
+
 
 // Middleware para parsear el body de las solicitudes
 app.use(express.json());
@@ -45,9 +45,6 @@ app.get("/", (req, res) => {
 });
 
 // Iniciar el servidor en el puerto especificado en las variables de entorno
-const PORT = 0;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
+
 
 module.exports = app;
