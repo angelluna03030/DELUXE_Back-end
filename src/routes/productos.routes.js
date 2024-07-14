@@ -72,6 +72,30 @@ router.put("/producto/:id", (req, res) => {
             res.status(500).json({ error: e.message });
         });
 });
+
+//cambiando de estado al producto 
+//cambio de estado 
+router.put('/estado/:id', (req, res) => {
+    const id = req.params.id;
+    const { estado } = req.body;
+
+    // Validar que el estado sea 0 o 1
+    if (estado !== 0 && estado !== 1) {
+        return res.status(400).json({ message: 'El estado debe ser 0 o 1' });
+    }
+    Producto.findByIdAndUpdate(id, { estado }, { new: true })
+        .then((productoActualizado) => {
+            if (!productoActualizado) {
+                return res.status(404).json({ message: 'Producto no encontrado' });
+            }
+            res.status(200).json(productoActualizado);
+        })
+        .catch((e) => {
+            console.error(`Error: ${e}`);
+            res.status(500).json({ error: e.message });
+        });
+});
+
 // eliminar una producto por el id
 router.delete("/producto/:id", (req, res) => {
     const id = req.params.id;
