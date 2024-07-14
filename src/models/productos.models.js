@@ -11,6 +11,11 @@ const productosSchema = new mongoose.Schema({
         required: true,
         match: /^[A-Za-z]+$/
     },
+    estado: {
+        type: Number,
+        enum: [0, 1],
+        required: true
+    },
     precio: {
         type: Number,
         required: true
@@ -46,6 +51,7 @@ const productosSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+  
 });
 
 const Producto = mongoose.model('Producto', productosSchema);
