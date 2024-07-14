@@ -3,7 +3,8 @@ const router = express.Router();
 const Producto = require('../models/productos.models'); 
 // crea los productos 
 router.post("/producto", (req, res) => {
-    const { codigo, nombreproductos, precio, descripcion, materiales, tallas, colores, imagenes, categorías } = req.body;
+    const estado = 1;
+    const { codigo, nombreproductos,estado, precio, descripcion, materiales, tallas, colores, imagenes, categorías } = req.body;
     const producto = new Producto(req.body);
     producto.save()
         .then((data) => res.status(201).json(data))
