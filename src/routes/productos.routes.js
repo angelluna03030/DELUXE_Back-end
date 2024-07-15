@@ -76,6 +76,7 @@ router.put("/producto/:id", (req, res) => {
 
 //cambiando de estado al producto 
 //cambio de estado 
+//http://localhost:3000/api/producto/estado/6693e3ecb4fad72ee214be5c
 router.put('/producto/estado/:id', (req, res) => {
     const id = req.params.id;
     const { estado } = req.body;
