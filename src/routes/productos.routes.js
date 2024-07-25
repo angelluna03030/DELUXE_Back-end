@@ -77,25 +77,32 @@ router.put("/producto/:id", (req, res) => {
 //cambiando de estado al producto 
 //cambio de estado 
 //http://localhost:3000/api/producto/estado/6693e3ecb4fad72ee214be5c
-router.put('/producto/estado/:id', (req, res) => {
-    const id = req.params.id;
-    const { estado } = req.body;
+router.put('/producto/estado/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const producto = await Producto.findById(id);
 
-    // Validar que el estado sea 0 o 1
-    if (estado !== 0 && estado !== 1) {
-        return res.status(400).json({ message: 'El estado debe ser 0 o 1' });
+        if (!producto) {
+            return res.status(404).json({ mensaje: "Producto no encontrado" });
+        }
+
+        const estadoProducto = producto.estado;
+
+        // Verificar que el estado del producto sea 0 o 1
+        if (estadoProducto !== 1 && estadoProducto !== 0) {
+            return res.status(400).json({ mensaje: "Este producto no puede ser cambiado de estado" });
+        }
+
+        // Cambiar el estado del producto
+        producto.estado = estadoProducto === 1 ? 0 : 1;
+
+        // Guardar el producto actualizado en la base de datos
+        await producto.save();
+
+        res.status(200).json({ datos: producto });
+    } catch (error) {
+        res.status(500).json({ mensaje: error.message });
     }
-    Producto.findByIdAndUpdate(id, { estado }, { new: true })
-        .then((productoActualizado) => {
-            if (!productoActualizado) {
-                return res.status(404).json({ message: 'Producto no encontrado' });
-            }
-            res.status(200).json(productoActualizado);
-        })
-        .catch((e) => {
-            console.error(`Error: ${e}`);
-            res.status(500).json({ error: e.message });
-        });
 });
 
 // eliminar una producto por el id
