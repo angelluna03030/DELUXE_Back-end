@@ -26,7 +26,7 @@ const upload = multer({ storage });
 /// tengo que subir el archivo con este nombre 
 // !                                |
 //                                  |
- 
+
 app.post("/public", upload.array('files', 10), (req, res) => { // 'files' es el nombre del campo que espera recibir y 10 es el máximo de archivos permitidos
     if (!req.files || req.files.length === 0) {
         return res.status(400).send({ error: "No se han subido archivos" });
@@ -37,6 +37,7 @@ app.post("/public", upload.array('files', 10), (req, res) => { // 'files' es el 
         files: fileNames
     });
 });
+app.use('/public', express.static('public'));
 
 // Conexión a MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
