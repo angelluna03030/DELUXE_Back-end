@@ -23,6 +23,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Ruta para la carga de múltiples archivos
+/// tengo que subir el archivo con este nombre 
+// !                                |
+//                                  |
+ 
 app.post("/public", upload.array('files', 10), (req, res) => { // 'files' es el nombre del campo que espera recibir y 10 es el máximo de archivos permitidos
     if (!req.files || req.files.length === 0) {
         return res.status(400).send({ error: "No se han subido archivos" });
