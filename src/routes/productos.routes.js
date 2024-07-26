@@ -34,7 +34,7 @@ const Producto = require('../models/productos.models');
 
 
 router.post("/producto", (req, res) => {
-    const { nombreproductos, estado, precio, descripcion, materiales, tallas, colores, imagenes, categorías } = req.body;
+    const { nombreproductos, estado, precio, descripcion, materiales, tallas, colores, imagenes, categorias } = req.body;
     
     // Generar el código para el nuevo producto
     const codigo = generarCodigo();
@@ -49,7 +49,7 @@ router.post("/producto", (req, res) => {
         tallas,
         colores,
         imagenes,
-        categorías
+        categorias
     });
 
     console.log('Datos recibidos:', req.body);
