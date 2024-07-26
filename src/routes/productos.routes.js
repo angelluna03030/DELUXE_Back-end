@@ -2,17 +2,66 @@ const express = require('express');
 const router = express.Router();
 const Producto = require('../models/productos.models'); 
 // crea los productos 
+ const  generarCodigo =()=> {
+    // Función para generar una letra mayúscula aleatoria
+    function obtenerLetraMayuscula() {
+        const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const indice = Math.floor(Math.random() * letras.length);
+        return letras[indice];
+    }
+
+    // Función para generar un número aleatorio del 0 al 9
+    function obtenerNumero() {
+        return Math.floor(Math.random() * 10);
+    }
+
+    // Generar las letras mayúsculas
+    let letrasMayusculas = '';
+    for (let i = 0; i < 3; i++) {
+        letrasMayusculas += obtenerLetraMayuscula();
+    }
+
+    // Generar los números
+    let numeros = '';
+    for (let i = 0; i < 3; i++) {
+        numeros += obtenerNumero();
+    }
+
+    // Combinar letras y números
+    return letrasMayusculas + numeros;
+}
+
+
+
 router.post("/producto", (req, res) => {
+    const { nombreproductos, estado, precio, descripcion, materiales, tallas, colores, imagenes, categorías } = req.body;
     
-    const { codigo, nombreproductos,estado, precio, descripcion, materiales, tallas, colores, imagenes, categorías } = req.body;
-    const producto = new Producto(req.body);
+    // Generar el código para el nuevo producto
+    const codigo = generarCodigo();
+
+    const producto = new Producto({
+        codigo,
+        nombreproductos,
+        estado,
+        precio,
+        descripcion,
+        materiales,
+        tallas,
+        colores,
+        imagenes,
+        categorías
+    });
+
+    console.log('Datos recibidos:', req.body);
+
     producto.save()
         .then((data) => res.status(201).json(data))
         .catch((e) => {
-            console.error(`Error: ${e}`);
+            console.error('Error al guardar el producto:', e);
             res.status(500).json({ error: e.message });
         });
 });
+
 // trae la producto por el id 
 
 router.get("/productos", (req, res) => {

@@ -26,7 +26,7 @@ const productosSchema = new mongoose.Schema({
     
     },
     materiales: {
-        type: String,
+        type: [String],
         required: true,
      
     },
@@ -43,9 +43,9 @@ const productosSchema = new mongoose.Schema({
         required: true
     },
     categorias: {
-        type: String,
+        type: [String],
         required: true,
-        match: /^[A-Za-z]+$/
+       
     },
     fechaCreacion: {
         type: Date,
