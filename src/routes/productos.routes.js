@@ -38,7 +38,7 @@ router.post("/producto", (req, res) => {
     
     // Generar el código para el nuevo producto
     const codigo = generarCodigo();
-
+console.log("Datos que trae ", req.body)
     const producto = new Producto({
         codigo,
         nombreproductos,
@@ -51,8 +51,6 @@ router.post("/producto", (req, res) => {
         imagenes,
         categorias
     });
-
-    console.log('Datos recibidos:', req.body);
 
     producto.save()
         .then((data) => res.status(201).json(data))
@@ -91,8 +89,8 @@ router.get("/producto/:id", (req, res) => {
 // trae la producto por la categoria 
 
 router.get('/productos/categoria/:categorias', (req, res) => {
-    const categoria = req.params.categorias;
-    Producto.find({ categorias: categoria })
+    const categorias = req.params.categorias;
+    Producto.find({ categorias: categorias })
         .then((productos) => {
             if (productos.length === 0) {
                 return res.status(404).json({ message: 'No se encontraron productos para esta categoría' });
@@ -109,8 +107,8 @@ router.get('/productos/categoria/:categorias', (req, res) => {
 router.put("/producto/:id", (req, res) => {
     const id = req.params.id;
    
-    const { codigo, nombreproductos, precio, descripcion, materiales, tallas, colores, imagenes, categorias } = req.body;
-    Producto.findByIdAndUpdate(id, { codigo, nombreproductos, precio,  descripcion, materiales, tallas, colores, imagenes, categorias }, { new: true })
+    const { nombreproductos, precio, descripcion, materiales, tallas, colores, imagenes, categorias } = req.body;
+    Producto.findByIdAndUpdate(id, {  nombreproductos, precio,  descripcion, materiales, tallas, colores, imagenes, categorias }, { new: true })
         .then((productoActualizada) => {
             if (!productoActualizada) {
                 return res.status(404).json({ message: 'Categoría no encontrada' });
