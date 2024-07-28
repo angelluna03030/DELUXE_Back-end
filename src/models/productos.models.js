@@ -9,7 +9,6 @@ const productosSchema = new mongoose.Schema({
     nombreproductos: {
         type: String,
         required: true,
-        match: /^[A-Za-z]+$/
     },
     estado: {
         type: Number,

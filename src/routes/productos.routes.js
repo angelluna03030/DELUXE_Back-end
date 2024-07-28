@@ -90,7 +90,7 @@ router.get("/producto/:id", (req, res) => {
 
 router.get('/productos/categoria/:categorias', (req, res) => {
     const categorias = req.params.categorias;
-    Producto.find({ categorias: categorias })
+    Producto.find({ categorias: { $in: [categorias] } })
         .then((productos) => {
             if (productos.length === 0) {
                 return res.status(404).json({ message: 'No se encontraron productos para esta categoría' });
@@ -102,6 +102,7 @@ router.get('/productos/categoria/:categorias', (req, res) => {
             res.status(500).json({ error: e.message });
         });
 });
+
 //Editar producto por el id 
 
 router.put("/producto/:id", (req, res) => {
