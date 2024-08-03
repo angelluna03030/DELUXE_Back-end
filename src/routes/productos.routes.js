@@ -103,6 +103,40 @@ router.get('/productos/categoria/:categorias', (req, res) => {
         });
 });
 
+//Buscar el producto
+router.get('/productos/buscar/:buscar', async (req, res) => {
+    const { nombre, categoria, precioMin, precioMax, color } = req.params.buscar;
+
+    let query = {};
+
+    if (nombre) {
+        query.nombreproductos = { $regex: nombre, $options: 'i' }; // Búsqueda insensible a mayúsculas/minúsculas
+    }
+
+    if (categoria) {
+        query.categorias = { $in: [categoria] };
+    }
+
+    if (precioMin || precioMax) {
+        query.precio = {};
+        if (precioMin) query.precio.$gte = parseFloat(precioMin);
+        if (precioMax) query.precio.$lte = parseFloat(precioMax);
+    }
+
+    if (color) {
+        query.colores = { $in: [color] };
+    }
+
+    try {
+        const productos = await Producto.find(query);
+        res.json(productos);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al buscar productos', error });
+    }
+});
+
+
+
 //Editar producto por el id 
 
 router.put("/producto/:id", (req, res) => {
@@ -169,6 +203,9 @@ router.delete("/producto/:id", (req, res) => {
             res.status(500).json({ error: e.message });
         });
 });
+
+
+//bucador de productos
 
 
 module.exports= router;
