@@ -4,8 +4,8 @@ const enrutador = Router();
 // GET
 enrutador.get('/productos', obtenerProductos);
 enrutador.get('/productos/:id',obtenerProductoPorId );
-enrutador.get('/productos/categoria/:categoria',obtenerProductosPorCategoria );
-enrutador.get('/productos/buscar/:buscar',buscarProductos )
+enrutador.get('/productos/categorias/:categoria',obtenerProductosPorCategoria );
+enrutador.get('/productos/buscar/:query',buscarProductos )
 // POST
 enrutador.post('/productos', crearProducto);
 

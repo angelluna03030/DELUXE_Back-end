@@ -3,12 +3,12 @@ const { actualizarCategoria, crearCategoria, eliminarCategoria, obtenerCategoria
 const enrutador = Router();
 // GET
 enrutador.get('/categorias', traerTodasLasCategorias);
-enrutador.get('/categoria/:id', obtenerCategoriaPorId);
+enrutador.get('/categorias/:id', obtenerCategoriaPorId);
 // POST
 enrutador.post('/categoria', crearCategoria);
 // PUT
-enrutador.put('/categoria/:id', actualizarCategoria);
+enrutador.put('/categorias/:id', actualizarCategoria);
 // DELETE
-enrutador.delete('/categoria/:id', eliminarCategoria);
+enrutador.delete('/categorias/:id', eliminarCategoria);
 
 module.exports = enrutador;

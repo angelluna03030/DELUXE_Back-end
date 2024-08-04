@@ -92,10 +92,10 @@ const obtenerProductoPorId = async (req, res) => {
 // trae la producto por la categoria 
 
 const obtenerProductosPorCategoria = async (req, res) => {
-    const { categorias } = req.params;
+    const { categoria } = req.params; // Usa 'categoria' en lugar de 'categorias'
     try {
-        // Asumimos que `categorias` es una cadena de texto con múltiples categorías separadas por comas.
-        const categoriasArray = categorias.split(','); // Convierte la cadena en un array de categorías
+        // Asumimos que `categoria` es una cadena de texto con múltiples categorías separadas por comas.
+        const categoriasArray = categoria.split(','); // Convierte la cadena en un array de categorías
         
         const productos = await Producto.find({ categorias: { $in: categoriasArray } });
         if (productos.length === 0) {
@@ -107,37 +107,21 @@ const obtenerProductosPorCategoria = async (req, res) => {
         res.status(500).json({ error: e.message });
     }
 };
+
 //Buscar el producto
 const buscarProductos = async (req, res) => {
-
-    const { nombre, categoria, precioMin, precioMax, color } = req.query;
-
-    let query = {};
-
-    if (nombre) {
-        query.nombreproductos = { $regex: nombre, $options: 'i' }; // Búsqueda insensible a mayúsculas/minúsculas
-    }
-
-    if (categoria) {
-        query.categorias = { $in: [categoria] };
-    }
-
-    if (precioMin || precioMax) {
-        query.precio = {};
-        if (precioMin) query.precio.$gte = parseFloat(precioMin);
-        if (precioMax) query.precio.$lte = parseFloat(precioMax);
-    }
-
-    if (color) {
-        query.colores = { $in: [color] };
-    }
+    const { query } = req.params;
 
     try {
-        const productos = await Producto.find(query);
+        const productos = await Producto.find({
+            nombreproductos: { $regex: '.*' + query +'.*', $options: "i" } // Crear una nueva expresión regular
+        });
         res.json(productos);
     } catch (error) {
         console.error('Error al buscar productos:', error);
+        res.status(500).json({ error: 'Error al buscar productos' });
     }
+
 }
 
 
