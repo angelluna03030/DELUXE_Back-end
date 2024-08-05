@@ -11,7 +11,7 @@ enrutador.post('/productos', crearProducto);
 
 // PUT
 enrutador.put('/productos/:id', actualizarProducto);
-enrutador.put('productos/estado/:id', cambiarEstadoProducto);
+enrutador.put('/  productos/estado/:id', cambiarEstadoProducto);
 // DELETE
 enrutador.delete('/productos/:id', eliminarProducto);
 

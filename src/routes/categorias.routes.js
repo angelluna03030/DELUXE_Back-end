@@ -5,10 +5,10 @@ const enrutador = Router();
 enrutador.get('/categorias', traerTodasLasCategorias);
 enrutador.get('/categorias/:id', obtenerCategoriaPorId);
 // POST
-enrutador.post('/categoria', crearCategoria);
+enrutador.post('/categorias', crearCategoria);
 // PUT
 enrutador.put('/categorias/:id', actualizarCategoria);
 // DELETE
-enrutador.delete('/categorias/:id', eliminarCategoria);
+// enrutador.delete('/categorias/:id', eliminarCategoria);
 
 module.exports = enrutador;

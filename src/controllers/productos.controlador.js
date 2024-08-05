@@ -32,7 +32,7 @@ const  generarCodigo =()=> {
 
 const crearProducto = async (req, res) => {
     try {
-        const { nombreproductos, estado, precio, descripcion, materiales, tallas, colores, imagenes, categorias } = req.body;
+        const { nombreproductos, estado, precio, descripcion,  tallas, colores, imagenes, categorias } = req.body;
         
         // Validar datos (esto es solo un ejemplo, usa una librería de validación para algo más robusto)
         if (!nombreproductos || !precio) {
@@ -49,7 +49,7 @@ const crearProducto = async (req, res) => {
             estado,
             precio,
             descripcion,
-            materiales,
+            
             tallas,
             colores,
             imagenes,
@@ -129,12 +129,12 @@ const buscarProductos = async (req, res) => {
 
 const actualizarProducto = async (req, res) => {
     const { id } = req.params;
-    const { nombreproductos, precio, descripcion, materiales, tallas, colores, imagenes, categorias } = req.body;
+    const { nombreproductos, precio, descripcion,  tallas, colores, imagenes, categorias } = req.body;
 
     try {
         const productoActualizado = await Producto.findByIdAndUpdate(
             id,
-            { nombreproductos, precio, descripcion, materiales, tallas, colores, imagenes, categorias },
+            { nombreproductos, precio, descripcion,  tallas, colores, imagenes, categorias },
             { new: true } // Devuelve el producto actualizado
         );
 

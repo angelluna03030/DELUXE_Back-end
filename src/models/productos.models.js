@@ -24,11 +24,7 @@ const productosSchema = new mongoose.Schema({
         required: true,
     
     },
-    materiales: {
-        type: [String],
-        required: true,
-     
-    },
+  
     tallas: {
         type: [String],
         required: true
