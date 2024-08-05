@@ -99,7 +99,7 @@ const obtenerProductosPorCategoria = async (req, res) => {
         
         const productos = await Producto.find({ categorias: { $in: categoriasArray } });
         if (productos.length === 0) {
-            return res.status(404).json({ message: 'No se encontraron productos para esta categoría' });
+            return res.status(200).json({ message: 'No se encontraron productos para esta categoría' });
         }
         res.status(200).json(productos);
     } catch (e) {
