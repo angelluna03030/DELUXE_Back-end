@@ -49,7 +49,6 @@ const crearProducto = async (req, res) => {
             estado,
             precio,
             descripcion,
-            
             tallas,
             colores,
             imagenes,

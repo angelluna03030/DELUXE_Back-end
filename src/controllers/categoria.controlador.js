@@ -29,10 +29,12 @@ const traerTodasLasCategorias = async (req, res) => {
 //crea una categoria
  const crearCategoria = async (req, res) => {
     const { nombre, imagen, descripcion } = req.body;
+    const estado = 1;
     const nuevaCategoria = new Categoria({
         nombre,
         imagen,
-        descripcion
+        descripcion,
+        estado 
     });
 
     try {
@@ -77,13 +79,40 @@ const traerTodasLasCategorias = async (req, res) => {
     }
 };
 
+const cambiarEstadoCategoria = async (req, res) => {
+    const { id } = req.params;
+    console.log(id);
+    try {
+        const categoria = await Categoria.findById(id);
 
+        if (!categoria) {
+            return res.status(404).json({ mensaje: "Categoria no encontrado" });
+        }
 
+        const estadoCategoria = categoria.estado;
+
+        // Verificar que el estado del producto sea 0 o 1
+        if (estadoCategoria !== 1 && estadoCategoria !== 0) {
+            return res.status(400).json({ mensaje: "Este Categoria no puede ser cambiado de estado" });
+        }
+
+        // Cambiar el estado del producto
+        categoria.estado = estadoCategoria === 1 ? 0 : 1;
+
+        // Guardar el producto actualizado en la base de datos
+        await categoria.save();
+        res.status(200).json({ datos: categoria });
+    } catch (error) {
+        console.error('Error al cambiar el estado del producto:', error);
+        res.status(500).json({ mensaje: error.message });
+    }
+}
 
 module.exports = {
     traerTodasLasCategorias,
     obtenerCategoriaPorId,
     crearCategoria,
     actualizarCategoria,
-    eliminarCategoria
+    eliminarCategoria,
+    cambiarEstadoCategoria
 };

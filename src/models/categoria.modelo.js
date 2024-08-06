@@ -10,6 +10,11 @@ const categoriaSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    estado: {
+        type: Number,
+        enum: [0, 1],
+        required: true
+    },
     descripcion: {
         type: String,
         required: true,
