@@ -91,11 +91,12 @@ const obtenerProductoPorId = async (req, res) => {
 // trae la producto por la categoria 
 
 const obtenerProductosPorCategoria = async (req, res) => {
-    const { categoria } = req.params; // Usa 'categoria' en lugar de 'categorias'
+    const { categoria } = req.params;
+ 
     try {
         // Asumimos que `categoria` es una cadena de texto con múltiples categorías separadas por comas.
-        const categoriasArray = categoria.split(','); // Convierte la cadena en un array de categorías
-        
+        const categoriasArray = categoria.split(',').map(cat => cat.trim()); // Convierte la cadena en un array y elimina espacios
+
         const productos = await Producto.find({ categorias: { $in: categoriasArray } });
         if (productos.length === 0) {
             return res.status(200).json({ message: 'No se encontraron productos para esta categoría' });

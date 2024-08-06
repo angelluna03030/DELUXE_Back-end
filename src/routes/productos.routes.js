@@ -8,7 +8,6 @@ enrutador.get('/productos/categorias/:categoria',obtenerProductosPorCategoria );
 enrutador.get('/productos/buscar/:query',buscarProductos )
 // POST
 enrutador.post('/productos', crearProducto);
-
 // PUT
 enrutador.put('/productos/:id', actualizarProducto);
 enrutador.put('/productos/estado/:id', cambiarEstadoProducto);
