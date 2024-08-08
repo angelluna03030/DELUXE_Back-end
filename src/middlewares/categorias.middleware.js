@@ -1,47 +1,37 @@
-
- const estaVacio = (valor) => {
+const estaVacio = (valor) => {
     return !valor || valor.trim().length === 0;
 };
 
-
- const noCaracteresEspeciales = (valor) => {
-    const regex = /^[A-Za-z0-9]+$/;
+const soloLetras = (valor) => {
+    // Permite solo letras y espacios
+    const regex = /^[a-zA-Z\s]+$/;
     return regex.test(valor);
 };
 
- const middlewareCategorias = (req, res, next) => {
-    const { nombre, imagen, descripcion } = req.body;
+const middlewareCategorias = (req, res, next) => {
+    const { nombre, descripcion, imagen } = req.body;
+
+    // Validación de campos vacíos
+    if (estaVacio(nombre) || estaVacio(descripcion)) {
+        return res.status(400).json({ mensaje: 'No se aceptan datos vacíos.' });
+    }
 
     // Validación del nombre
-    const nombreValido = /^[A-Za-z]+(?: [A-Za-z]+)*[A-Za-z]$/;
-
-
-    if (!nombreValido.test(nombre)) {
-        return res.status(400).json({ mensaje: 'El nombre debe contener entre 5 y 15 letras sin números y no debe tener espacios al final.' });
+    if (!soloLetras(nombre) || nombre.length < 5 || nombre.length > 15) {
+        return res.status(400).json({ mensaje: 'El nombre debe contener entre 5 y 15 letras y solo puede contener letras y espacios.' });
     }
 
     // Validación de la descripción
-    if (descripcion.length < 15 || descripcion.length > 100) {
-        return res.status(400).json({ mensaje: 'La descripción debe tener entre 15 y 100 caracteres.' });
+    if (descripcion.length < 15 || descripcion.length > 40) {
+        return res.status(400).json({ mensaje: 'La descripción debe tener entre 15 y 40 caracteres.' });
     }
 
     // Validación de la imagen
-    if (!imagen || imagen.length === 0) {
+    if (estaVacio(imagen)) {
         return res.status(400).json({ mensaje: 'Se debe seleccionar una imagen.' });
-    }
-
-    // Validaciones adicionales
-    if (estaVacio(nombre) || estaVacio(descripcion)) {
-        return res.status(400).json({ mensaje: 'No se aceptan datos vacíos' });
-    }
-    
-    if (!noCaracteresEspeciales(nombre) || !noCaracteresEspeciales(descripcion)) {
-        return res.status(400).json({ mensaje: 'Tipos de datos no válidos' });
     }
 
     next();
 }
-
-
 
 module.exports = middlewareCategorias;

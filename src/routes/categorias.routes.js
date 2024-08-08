@@ -16,7 +16,7 @@ enrutador.get("/categorias", traerTodasLasCategorias);
 enrutador.get("/categorias/:id", obtenerCategoriaPorId);
 
 // POST
-enrutador.post("/categorias", middlewareCategorias, crearCategoria);
+enrutador.post("/categorias",middlewareCategorias,  crearCategoria);
 
 // PUT
 enrutador.put("/categorias/:id",middlewareCategorias, actualizarCategoria);

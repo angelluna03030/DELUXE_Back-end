@@ -28,6 +28,7 @@ const obtenerCategoriaPorId = async (req, res) => {
 const crearCategoria = async (req, res) => {
   const { nombre, imagen, descripcion } = req.body;
   const estado = 1;
+  console.log("categoria en esl controladdor ", req.body)
   const nuevaCategoria = new Categoria({
     nombre,
     imagen,
@@ -48,7 +49,7 @@ const crearCategoria = async (req, res) => {
 const actualizarCategoria = async (req, res) => {
   const id = req.params.id;
   const { nombre, imagen, descripcion } = req.body;
-
+  
   try {
     const categoriaActualizada = await Categoria.findByIdAndUpdate(
       id,

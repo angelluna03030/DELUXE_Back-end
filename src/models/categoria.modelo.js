@@ -4,7 +4,7 @@ const categoriaSchema = new mongoose.Schema({
   nombre: {
     type: String,
     required: true,
-    match: /^[A-Za-z\s]+$/,
+    match: /^[a-zA-Z\s]{5,15}$/,
   },
   imagen: {
     type: String,
