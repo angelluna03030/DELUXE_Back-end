@@ -5,7 +5,9 @@ require("dotenv").config();
 const cors = require("cors");
 const multer = require("multer");
 const sharp = require("sharp");
+const morgan = require("morgan")
 // Middleware para parsear el body de las solicitudes
+app.use(morgan())
 app.use(express.json());
 app.use(cors());
 
