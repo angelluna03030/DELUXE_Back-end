@@ -13,7 +13,9 @@
     const { nombre, imagen, descripcion } = req.body;
 
     // Validación del nombre
-    const nombreValido = /^[A-Za-z]{5,15}$/;
+    const nombreValido = /^[A-Za-z]+(?: [A-Za-z]+)*[A-Za-z]$/;
+
+
     if (!nombreValido.test(nombre)) {
         return res.status(400).json({ mensaje: 'El nombre debe contener entre 5 y 15 letras sin números y no debe tener espacios al final.' });
     }
